@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script>
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+            <!-- jQuery library -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <!-- Popper JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+            <!-- Latest compiled JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+            <!-- font awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style media="screen">
+                html, body {
+                  height: auto;
+                  background-color: black;
+                }
+                .full-height{
+                    height:auto;
+                    background:#E9F749;
+                }
+                .container{
+                    height:85%;
+                    position:relative;
+                    top:5%;
+                }
+                .our-detail{
+                    display: inline-block;
+                    box-shadow: 10px -10px 5px yellow;
+                    border-radius:50px;
+                    width: 175px;
+                    height:500px;
+                    background:white;
+                    padding: 1px;
+                    margin:90px;
+                    transform-style:preserve-3d;
+                    transition: all 0.5s ease;
+                }
+                .our-detail:hover{
+                    transform:rotateY(180deg);
+                }
+                .first-div{
+                    display:flex;
+                }
+                .jaypee-logo{
+                    left: 15%;
+                    width: 300px;
+                    height: 326px;
+                    background-color: white;
+                    position: relative;
+                }
+                .jaypee-logo img{
+                    position:relative;
+                    top:15px;
+                    left:20px;
+                }
+                .detail{
+                    position:relative;
+                    left:15%;
+                    background-color:white;
+                }
+                .supervisor-details{
+                    position:relative;
+                    top:-10px;
+                    left:20px;
+                    width:auto;
+                }
+                .team-members{
+                    position:relative;
+                    top:20px    ;
+                    background-color:pink;
+                }
+                .name{
+                    width:175px;
+                    position:relative;
+                    top:20px;
+                    background-color:white;
+                    height:35px;
+                    <!-- border-radius:10px; -->
+                }
+                .name p{
+                    position:relative;
+                    left:20%;
+                    top:10%;
+                }
+                .photo{
+                    backface-visibility:hidden;
+                }
+                .photo img{
+                    border-radius:50px;
+                }
+                .back{
+                    position:absolute;
+                    transform:rotateY(180deg);
+                    text-algin:center;
+                    background-color:red;
+                }
+                .button
+                    {
+                      position: relative;
+                      left: 34%;
+                      text-align: center;
+                      width: 250px;
+                      padding: 20px;
+                      font-size: 20px;
+                      color: #15f4ee;
+                      font-family: poppins;
+                      font-weight: 250;
+                      border: 5px solid #15f4ee;
+                      text-transform: uppercase;
+                      letter-spacing: 10px;
+                      cursor: pointer;
+                      border-radius: 100px;
+                      transition: 1.5s;
+                    }
+                    .button:hover
+                        {
+                          box-shadow: 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee,
+                                      0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee;
+                          text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
+                        }
+            </style>
+        </script>
+    </head>
+    <body>
+        <div class="full-height">
+            <div class="container" style="margin: 20px; padding:20px; background-color:#FE4120;">
+                <div class="first-div">
+                    <div class="jaypee-logo">
+                        <img src="Logo-jiit.png" alt="Our College" width="250" height="250">
+                    </div>
+                    <div class="detail" style="padding:5px;">
+                        <div class="" style="position:relative; left:103px;">
+                            <h1> Major 2020 VIIth Semester</h1>
+                        </div>
+                        <h1>Influencer Indexing and Social Media Marketing</h1>
+                        <i class="fa fa-address-book" aria-hidden="true">Supervisor</i>
+                        <section class="supervisor-details">
+                            <div class="" style="position:relative;left:25%;">
+                            <h3>    Dr. Anuja Arora</h3>
+                            </div>
+                            <div class="" style="position:relative; top:-23px;left:42px;">
+                                <h4>
+                                Dept. of Computer Science and Information Technology<br>
+                                Jaypee Institute of Information Technology, Noida
+                                <h4>
+                                <h3>
+                                <div class="" style="position:relative;left:19%; top:-28px;" >
+                                    <a href="mailto:anuja.arora@jiit..ac.in">anuja.arora@jiit..ac.in</a>
+                                </div>
+                                </h3>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="team-members" >
+                    <div class="team-heading" style="background-color:yellow;width:200px;height:25px;font-size:20px;padding:20px;left:40%;top:10%;position:relative;">
+                        <b>Team Members</b>
+                    </div>
+                    <div class="team-badges" style="padding:30px;background:green;height:600px;">
+                        <div class="our-detail"  >
+                            <div class="photo">
+                                <img src="aman.JPG" alt="Our College" width="177" height="500">
+                            </div>
+                        </div>
+                        <div class="our-detail" >
+                            <!-- <div class="name">
+                                <p>Prabal Goel</p>
+                            </div> -->
+                            <div class="photo">
+                                <img src="prabal.JPG" alt="Our College" width="177" height="500">
+                            </div>
+                        </div>
+                        <div class="our-detail" >
+                            <!-- <div class="name">
+                                <p>Shashwat Singh</p>
+                            </div> -->
+                            <div class="photo">
+                                <img src="shashwat.JPG" alt="Our College" width="177" height="500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div type="button" name="predict" class="button" onclick="location.href='predict.html';">let's predict</div>
+            </div>
+        </div>
+    </body>
+</html>

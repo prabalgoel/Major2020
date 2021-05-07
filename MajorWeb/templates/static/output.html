@@ -1,0 +1,344 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <title></title>
+    <style>
+        body {
+            /* background-image: url("{% static 'home_page.png' %}"); */
+            background-color: #000;
+            margin: 20px;
+        }
+
+        .container {
+            display: grid;
+            height: 100vh;
+            padding: 30px;
+            /* margin: 20px; */
+            grid-template-columns: 500px 500px;
+            grid-template-rows: 800px 800px;
+            text-decoration-color: white;
+        }
+
+        .table-main {
+            background: white;
+            border: 2px solid red;
+            color: black;
+            transition-property: background, color;
+            transition-duration: 1s, 1s;
+        }
+
+        .table-main:hover {
+            background: #00ffff;
+            color: red;
+        }
+
+        .table-box {
+            margin: 5px auto;
+            width: 100%;
+        }
+
+        .table-row {
+            display: table;
+            width: 100%;
+            height: 20px;
+            margin: 3px auto;
+            font-family: sans-serif;
+            background: transparent;
+            padding: 8px 0;
+            color: #555;
+            font-size: 13px;
+            box-shadow: 0 3px 3px 0 black;
+            transition-property: background, box-shadow;
+        }
+
+        .table-row:hover {
+            background: yellow;
+            box-shadow: 0 6px 6px 0 green;
+        }
+
+        .table-cell {
+            display: table-cell;
+            width: 30%;
+            height: 20px;
+            text-align: center;
+            /* padding: 4px 0; */
+            border-right: 1px solid #d6d4d4;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="first" style="background-color:white;border:2px solid pink;text-align:center;color:blue;">
+            On Basis of Posts interaction
+            <!-- <canvas id="myChart1" style="background-color:yellow;"></canvas> -->
+            <div class="container" style="display:block; background-color:white;font-size:13px;">
+                List Of Influencers with their Instagram Id's
+                <div class="table-main">
+                    <div class="table-box">
+                        <div class="table-row" style="background-color:#FABF06;">
+                            <div class="table-cell">
+                                <p>NAME</p>
+                            </div>
+                            <div class="table-cell">
+                                <p>ID</p>
+                            </div>
+                        </div>
+                        {% for data in onBasisPostLinks %}
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <p>{{data.name}}</p>
+                            </div>
+                            <div class="table-cell">
+                                <p><a href={{data.id}}>{{data.id}}</a></p>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="first" style="background-color:white;border:2px solid pink;text-align:center;color:blue;">
+            ON BASIS OF VIDEO INTERACTION
+            <canvas id="myChart2" style="background-color:orange;"></canvas>
+            <div class="container" style="display:block; background-color:white;font-size:13px;">
+                List Of Influencers with their Instagram Id's
+                <div class="table-main">
+                    <div class="table-box">
+                        <div class="table-row" style="background-color:#FABF06;">
+                            <div class="table-cell">
+                                <p>NAME</p>
+                            </div>
+                            <div class="table-cell">
+                                <p>ID</p>
+                            </div>
+                        </div>
+                        {% for data in onBasisVideosLinks %}
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <p>{{data.name}}</p>
+                            </div>
+                            <div class="table-cell">
+                                <p><a href={{data.id}}>{{data.id}}</a></p>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="first" style="background-color:white;border:2px solid pink;text-align:center;color:blue;">
+            On Basis of Product Description & Hashtags
+            <canvas id="myChart3" style="background-color:orange;"></canvas>
+            <div class="container" style="display:block; background-color:white;font-size:13px;">
+                List Of Influencers with their Instagram Id's
+                <div class="table-main">
+                    <div class="table-box">
+                        <div class="table-row" style="background-color:#FABF06;">
+                            <div class="table-cell">
+                                <p>NAME</p>
+                            </div>
+                            <div class="table-cell">
+                                <p>ID</p>
+                            </div>
+                        </div>
+                        {% for data in onBasisCosineLinks %}
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <p>{{data.name}}</p>
+                            </div>
+                            <div class="table-cell">
+                                <p><a href={{data.id}}>{{data.id}}</a></p>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="first" style="background-color:white;border:2px solid pink;text-align:center;color:blue;">
+            Considering all Factors into account
+            <canvas id="myChart4" style="background-color:yellow;"></canvas>
+            <div class="container" style="display:block; background-color:white;font-size:13px;">
+                List Of Influencers with their Instagram Id's
+                <div class="table-main">
+                    <div class="table-box">
+                        <div class="table-row" style="background-color:#FABF06;">
+                            <div class="table-cell">
+                                <p>NAME</p>
+                            </div>
+                            <div class="table-cell">
+                                <p>ID</p>
+                            </div>
+                        </div>
+                        {% for data in onBasisAllLinks %}
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <p>{{data.name}}</p>
+                            </div>
+                            <div class="table-cell">
+                                <p><a href={{data.id}}>{{data.id}}</a></p>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    var url = "/final_output";
+    var onBasisPostName = [];
+    var onBasisPostValue = [];
+
+    var onBasisVideosName = [];
+    var onBasisVideosValue = [];
+
+    var onBasisCosineName = [];
+    var onBasisCosineValue = [];
+
+    var onBasisAllName = [];
+    var onBasisAllValue = [];
+    $.ajax({
+        method: "GET",
+        url: url,
+        success: function (data) {
+            console.log(data['post'].length);
+            for (var i = 0; i < data['post'].length; i++) {
+                onBasisPostName.push(data['post'][i]['name']);
+                onBasisPostValue.push(data['post'][i]['value'] * 100);
+            }
+
+            for (var i = 0; i < data['video'].length; i++) {
+                onBasisVideosName.push(data['video'][i]['name']);
+                onBasisVideosValue.push(data['video'][i]['value'] * 100);
+            }
+
+            for (var i = 0; i < data['cosine'].length; i++) {
+                onBasisCosineName.push(data['cosine'][i]['name']);
+                onBasisCosineValue.push(data['cosine'][i]['value'] * 100);
+            }
+
+            for (var i = 0; i < data['allto'].length; i++) {
+                onBasisAllName.push(data['allto'][i]['name']);
+                onBasisAllValue.push(data['allto'][i]['value'] * 100);
+            }
+
+            var ctx1 = document.getElementById('myChart1').getContext('2d');
+            var chart1 = new Chart(ctx1, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                scales: {
+                    y: {
+                        max: 1000,
+                        min: 0,
+                        ticks: {
+                            stepSize: 0.5
+                        }
+                    }
+                },
+
+                // The data for our dataset
+                data: {
+                    labels: onBasisPostName,
+                    datasets: [{
+                        label: 'On Basis of Post interaction',
+                        backgroundColor: ['#ff0000', 'rgb(0, 255, 0) ', '#00ffff', '#0000ff', '#003300', '#ff33cc'],
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: onBasisPostValue
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx2 = document.getElementById('myChart2').getContext('2d');
+            var chart2 = new Chart(ctx2, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: onBasisVideosName,
+                    datasets: [{
+                        label: 'On Basis of Videos interaction',
+                        backgroundColor: ['#ff0000', '#ffff00', '#00ffff', '#0000ff', '#003300', '#ff33cc'],
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: onBasisVideosValue
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx3 = document.getElementById('myChart3').getContext('2d');
+            var chart3 = new Chart(ctx3, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: onBasisCosineName,
+                    datasets: [{
+                        label: 'On Basis of Cosine interaction',
+                        backgroundColor: ['#ff0000', '#ffff00', '#00ffff', '#0000ff', '#003300', '#ff33cc'],
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: onBasisCosineValue
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx4 = document.getElementById('myChart4').getContext('2d');
+            var chart4 = new Chart(ctx4, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: onBasisAllName,
+                    datasets: [{
+                        label: 'On Basis of All Factors interaction',
+                        backgroundColor: ['#ff0000', 'rgb(0, 255, 0)', '#00ffff', '#0000ff', '#003300', '#ff33cc'],
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: onBasisAllValue
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+        },
+        error: function (data) {
+            console.log("error" + data);
+        }
+    })
+</script>
+
+</html>

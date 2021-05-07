@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title></title>
+        <style>
+            body{
+                background-image: url('home_page.png');"
+            }
+        </style>
+    </head>
+    <body>
+        <button type="button" name="button" class="button" id="myButton" data-target="#mymodalLogin" data-toggle="modal"> Starting </button>
+              <div class="modal" id="mymodalLogin">
+                  <div class="modal-dialog">
+                  <div class="modal-container">
+                      <div class="modal-content">
+                          <div class="modal-header" style="background-color:red;">
+                                  <h3>Enter Details Regarding your product</h3>
+                                  <button type="button" name="close" class="text-danger" data-dismiss="modal" style="border: 2px solid white;cursor:pointer;">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                              <form action="#" method="POST" enctype="multipart/form-data">
+                                  <div class="form-group">
+                                      <label class="required">
+                                          <i class="fas fa-flag" aria-hidden="true"></i>
+                                          Country:
+                                      </label>
+                                      <select id="country" name="countries">
+                                      <option value="empty">empty</option>
+                                      <option value="USA">USA</option>
+                                      <option value="india">india</option>
+                                      <option value="france">france</option>
+                                      <option value="canada">canada</option>
+                                      <option value="iran">iran</option>
+                                      <option value="germany">germany</option>
+                                      <option value="japan">japan</option>
+                                      <option value="china">china</option>
+                                      <option value="spain">spain</option>
+                                      <option value="italy">italy</option>
+                                      <option value="uk">uk</option>
+                                      <option value="korea">korea</option>
+                                      <option value="newzealand">newzealand</option>
+                                      <option value="pakistan">pakistan</option>
+                                      <option value="brazil">brazil</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="required">
+                                          <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                          Category:
+                                      </label>
+                                      <select id="category" name="categories">
+                                      <option value="empty">empty</option>
+                                      <option value="fashion">fashion</option>
+                                      <option value="actor">actor</option>
+                                      <option value="chef">chef</option>
+                                      <option value="singer/makeup">singer/makeup</option>
+                                      <option value="photography">photography</option>
+                                      <option value="singer">singer</option>
+                                      <option value="sports">sports</option>
+                                      <option value="fashion/makeup">fashion/makeup</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="required" for="student"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Product Description</label>
+                                      <textarea name="productDetail" rows="8" cols="60" style="font-style: oblique;"></textarea>
+                                      <!-- <input type="radio" id="student" name="designation" value="student" required>
+                                      &nbsp;&nbsp;&nbsp;&nbsp;
+                                      <label class="required" for="tutor"> <i class="fa fa-book" aria-hidden="true"></i>Teacher</label>
+                                      <input type="radio" id="tutor" name="designation" value="tutor" required> -->
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="submit" class="btn btn-success" required style="width:100%">
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+                 </div>
+              </div>
+    </body>
+    <script type="text/javascript">
+        window.onload=initAll;
+        function initAll(){
+            setTimeout(function(){ document.getElementById('myButton').click(); }, 000);
+        }
+    </script>
+</html>

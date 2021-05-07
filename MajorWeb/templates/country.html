@@ -1,0 +1,380 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-image: url(" {% static 'bg.jpg' %}");
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            color: white;
+            padding: 1rem;
+            font-family: "Sofia", sans-serif;
+        }
+
+        .container {
+            margin-top: 2rem;
+        }
+
+        .container div {
+            font-family: "Sofia", sans-serif;
+        }
+
+        .red {
+            background-color: #130f40;
+        }
+
+        .blue {
+            background-color: #130f40;
+        }
+
+        .tab-name {
+            background-color: beige;
+            color: black;
+            padding: 20px;
+            margin: 0.4rem;
+        }
+
+        button {
+            background-color: #b0ca6a;
+            border: none;
+            max-width: 500px;
+        }
+
+        .tab-name:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .influencer_title {
+            text-align: center;
+            padding-top: 20px;
+            font-weight: bold;
+
+        }
+
+        .influencer_row {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #dff9fb;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            margin: 10px;
+            color: black;
+            font-size: 20pt;
+            border: 1px solid white;
+            border-radius: 20px;
+            opacity: 0.8;
+        }
+
+        .influencer_row:hover {
+            background-color: #dff9fb;
+            color: black;
+            transform: translate(5px, 5px);
+            opacity: 1;
+        }
+
+        .influencer_row:active {
+            background-color: yellow;
+            color: white;
+            transform: translate(-5px, -5px);
+        }
+
+        .influencer_image {
+            flex: 0.3;
+            object-fit: contain;
+            padding-top: 10px;
+        }
+
+        .influencer_name {
+            flex: 0.2;
+            padding-left: 0.5rem;
+            text-align: center;
+            line-height: 50pt;
+        }
+
+        .right-part {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: "overlap";
+        }
+
+        .post_like {
+            grid-area: overlap;
+            display: none;
+        }
+
+        .post_comment {
+            grid-area: overlap;
+
+        }
+
+        .Video_Views {
+            grid-area: overlap;
+            display: none;
+        }
+
+        .Video_Comments {
+            grid-area: overlap;
+            display: none;
+        }
+
+        .img-fluid {
+            width: 80%;
+            height: 100%;
+        }
+
+        .influencer_id {
+            flex: 0.1;
+            text-align: center;
+        }
+
+        .influencer_category {
+            flex: 0.4;
+            text-align: center;
+        }
+
+        .left_part {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            background-color: #b0ca6a;
+            height: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #post_comment {
+            background-color: lightseagreen;
+        }
+
+        .button {
+            position: relative;
+            left: 34%;
+            text-align: center;
+            width: 250px;
+            padding: 20px;
+            font-size: 20px;
+            color: #15f4ee;
+            font-family: poppins;
+            font-weight: 250;
+            border: 5px solid #15f4ee;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            cursor: pointer;
+            border-radius: 100px;
+            transition: 1.5s;
+            font-weight: 900;
+            font-size: 20pt;
+            font-family: 'Sofia', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: white;
+        }
+
+        .button:hover {
+            background-color: transparent;
+            box-shadow: 0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee,
+                0 5px 50px 0 #15f4ee inset, 0 5px 50px 0 #15f4ee;
+            text-shadow: 0 0 5px #15f4ee, 0 0 5px #15f4ee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div style="text-align: center;text-decoration:solid;font-size: 50pt;text-transform: uppercase;">{{country}}
+        </div>
+        <div class="row">
+            <div class="col-md-3 mx-1">
+                <div class="left_part " style="border-radius: 20px;">
+                    <button id="post_comment" onclick="return post_comment()">
+                        <div class="tab-name">Average Post Comments</div>
+                    </button>
+                    <button id="post_like" onclick="return post_like()">
+                        <div class="tab-name">Average Post Likes</div>
+                    </button>
+                    <button id="video_comment" onclick="return video_comment()">
+                        <div class="tab-name">Average Video Comments</div>
+                    </button>
+                    <button id="video_views" onclick="return video_views()">
+                        <div class="tab-name">Average Video Views</div>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8 blue">
+                <div class="right-part">
+
+                    <div class="post_comment" style="border-radius: 20px;">
+                        <div class="influencer_title">
+                            <h3 style="display: inline;"> Best Influencer</h3><small>(Average Post Comment)</small>
+                        </div>
+                        {% for data in onCountryFilter %}
+                        <a href="{{data.id}}" target="_blank">
+                            <div class="influencer_row">
+                                <div class="influencer_image" style="width: 100px; height: 100px; margin-bottom: 1rem;">
+                                    <img class="img-fluid rounded-circle" src="{{data.src}}">
+                                </div>
+                                <div class="influencer_name">
+                                    {{data.name}}
+                                </div>
+                                <div class="influencer_id" style="align-items: center;">
+                                    <button class="btn btn-success">ID</button>
+                                </div>
+                                <div class="influencer_category">
+                                    {{data.category}}
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="post_like" style="border-radius: 20px;">
+                        <div class="influencer_title">
+                            <h3 style="display: inline;"> Best Influencer</h3><small>(Average Post Likes)</small>
+                        </div>
+                        {% for data in onCountryPostLike %}
+                        <a href="{{data.id}}" target="_blank">
+                            <div class="influencer_row">
+                                <div class="influencer_image" style="width: 100px; height: 100px; margin-bottom: 1rem;">
+                                    <img class="img-fluid rounded-circle" src="{{data.src}}">
+                                </div>
+                                <div class="influencer_name">
+                                    {{data.name}}
+                                </div>
+                                <div class="influencer_id" style="align-items: center;">
+                                    <button class="btn btn-success">ID</button>
+                                </div>
+                                <div class="influencer_category">
+                                    {{data.category}}
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="Video_Comments" style="border-radius: 20px;">
+                        <div class="influencer_title">
+                            <h3 style="display: inline;"> Best Influencer</h3><small>(Average Video Comments)</small>
+                        </div>
+                        {% for data in onCountryVideocomments %}
+                        <a href="{{data.id}}" target="_blank">
+                            <div class="influencer_row">
+                                <div class="influencer_image" style="width: 100px; height: 100px; margin-bottom: 1rem;">
+                                    <img class="img-fluid rounded-circle" src="{{data.src}}">
+                                </div>
+                                <div class="influencer_name">
+                                    {{data.name}}
+                                </div>
+                                <div class="influencer_id" style="align-items: center;">
+                                    <button class="btn btn-success">ID</button>
+                                </div>
+                                <div class="influencer_category">
+                                    {{data.category}}
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="Video_Views" style="border-radius: 20px;">
+                        <div class="influencer_title">
+                            <h3 style="display: inline;"> Best Influencer</h3><small>(Average Video Views)</small>
+                        </div>
+                        {% for data in onCountryVideoViews %}
+                        <a href="{{data.id}}" target="_blank">
+                            <div class="influencer_row">
+                                <div class="influencer_image" style="width: 100px; height: 100px; margin-bottom: 1rem;">
+                                    <img class="img-fluid rounded-circle" src="{{data.src}}">
+                                </div>
+                                <div class="influencer_name">
+                                    {{data.name}}
+                                </div>
+                                <div class="influencer_id" style="align-items: center;">
+                                    <button class="btn btn-success">ID</button>
+                                </div>
+                                <div class="influencer_category">
+                                    {{data.category}}
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col offset-md-2" style="align-items: center;">
+                <div type="button" name="predict" class="button" onclick="location.href='/predict';">let's predict</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function post_like() {
+        console.log("clicked");
+        $('.post_comment').css('display', 'none');
+        $('.post_like').css('display', 'block');
+        $('.Video_Comments').css('display', 'none');
+        $('.Video_Views').css('display', 'none');
+        $('#post_like').css('background-color', 'lightseagreen')
+        $('#post_comment').css('background-color', '#b0ca6a')
+        $('#video_comment').css('background-color', '#b0ca6a')
+        $('#video_views').css('background-color', '#b0ca6a')
+    }
+
+    function post_comment() {
+        console.log("clicked");
+        $('.post_comment').css('display', 'block');
+        $('.post_like').css('display', 'none');
+        $('.Video_Comments').css('display', 'none');
+        $('.Video_Views').css('display', 'none');
+        $('#post_like').css('background-color', '#b0ca6a')
+        $('#post_comment').css('background-color', 'lightseagreen')
+        $('#video_comment').css('background-color', '#b0ca6a')
+        $('#video_views').css('background-color', '#b0ca6a')
+    }
+    function video_comment() {
+        console.log("clicked");
+        $('.post_comment').css('display', 'none');
+        $('.post_like').css('display', 'none');
+        $('.Video_Comments').css('display', 'block');
+        $('.Video_Views').css('display', 'none');
+        $('#post_like').css('background-color', '#b0ca6a')
+        $('#post_comment').css('background-color', '#b0ca6a')
+        $('#video_comment').css('background-color', 'lightseagreen')
+        $('#video_views').css('background-color', '#b0ca6a')
+    }
+    function video_views() {
+        $('.post_comment').css('display', 'none');
+        $('.post_like').css('display', 'none');
+        $('.Video_Comments').css('display', 'none');
+        $('.Video_Views').css('display', 'block');
+        $('#post_like').css('background-color', '#b0ca6a')
+        $('#post_comment').css('background-color', '#b0ca6a')
+        $('#video_comment').css('background-color', '#b0ca6a')
+        $('#video_views').css('background-color', 'lightseagreen')
+    }
+</script>
+
+</html>

@@ -1,0 +1,1180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <title>Result page</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .yellow {
+            background-color: gold;
+        }
+
+        .green {
+            background-color: #fffa65;
+            border-radius: 20px;
+            box-shadow: -5px -5px #4b4b4b;
+        }
+
+        .white {
+            background-color: whitesmoke;
+            border-radius: 20px;
+        }
+
+        .black {
+            background-color: black;
+        }
+
+        #post_graph,
+        #post_test,
+        #video_graph,
+        #video_test,
+        #nlp_graph,
+        #nlp_test,
+        #all_graph,
+        #all_test {
+            margin: 5px;
+            background-color: white;
+            color: black;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        #post_graph:hover,
+        #post_test:hover,
+        #video_graph:hover,
+        #video_test:hover,
+        #nlp_graph:hover,
+        #nlp_test:hover,
+        #all_graph:hover,
+        #all_test:hover {
+            transform: translate(-1px, -1px);
+            transition: 0.2s;
+        }
+
+        .item_container,
+        .item_container2,
+        .item_container3,
+        .item_container4 {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: "overlap";
+        }
+
+        .item1,
+        .item21,
+        .item31,
+        .item41 {
+            grid-area: overlap;
+        }
+
+        .item1:hover,
+        .item2:hover,
+        .item21:hover,
+        .item22:hover,
+        .item31:hover,
+        .item32:hover,
+        .item41:hover,
+        .item42:hover {
+            transform: translate(5px, 5px);
+            transition: 0s;
+        }
+
+        .item2,
+        .item22,
+        .item32,
+        .item42 {
+            grid-area: overlap;
+            display: none;
+        }
+
+        .border1 {
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row p-2 mt-2 white">
+            <div class="col m-2">
+                <div class="row red">
+                    <div class="col yellow" id="post_graph">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="post_graph_btn" onclick="return post_graph_show()">
+                            PREDICTION
+                        </button>
+                    </div>
+                    <div class="col yellow" id="post_test">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="post_test_btn" onclick="return post_test_show()">
+                            HYPOTHESIS
+                        </button>
+                    </div>
+                </div>
+                <div class="item_container">
+                    <div class="item1">
+                        <div class="row green mt-2">
+                            <div class="col">
+                                <canvas id="myChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item2">
+                        <div class="row mt-2" style="color:black;">
+                            <div class="col" style="width: 100%;">
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions(length)</small>
+                                                    </th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_length_val_post %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_likes_val_post %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_likes_length_val_post %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">t-test<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_length_val_post %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_like_val_post %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_like_length_val_post %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col white m-2">
+                <div class="row red">
+                    <div class="col yellow" id="video_graph">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="video_graph_btn" onclick="return video_graph_show()">
+                            PREDICTION
+                        </button>
+                    </div>
+                    <div class="col yellow" id="video_test">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="video_test_btn" onclick="return video_test_show()">
+                            HYPOTHESIS
+                        </button>
+                    </div>
+                </div>
+                <div class="item_container_2">
+                    <div class="item21">
+                        <div class="row mt-2"
+                            style="background-color: #18dcff;border-radius:20px;box-shadow: 5px 5px 5px 5px #4b4b4b;">
+                            <div class="col">
+                                <canvas id="myChart2" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item22">
+                        <div class="row mt-2" style="color:black;">
+                            <div class="col" style="width: 100%;">
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions(length)</small>
+                                                    </th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_length_val_video %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_likes_val_video %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_likes_length_val_video %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">t-test<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_length_val_video %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_like_val_video %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_like_length_val_video %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2 mt-2 white">
+            <div class="col m-2">
+                <div class="row red">
+                    <div class="col yellow" id="nlp_graph">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="nlp_graph_btn" onclick="return nlp_graph_show()">
+                            PREDICTION
+                        </button>
+                    </div>
+                    <div class="col yellow" id="nlp_test">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="nlp_test_btn" onclick="return nlp_test_show()">
+                            HYPOTHESIS
+                        </button>
+                    </div>
+                </div>
+                <div class="item_container3">
+                    <div class="item31">
+                        <div class="row mt-2"
+                            style="background-color: #18dcff;border-radius:20px;box-shadow: 5px 5px 5px 5px #4b4b4b;">
+                            <div class="col">
+                                <canvas id="myChart3" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item32">
+                        <div class="row mt-2" style="color:black;">
+                            <div class="col" style="width: 100%;">
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions(length)</small>
+                                                    </th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_length_val_nlp %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_likes_val_nlp %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_likes_length_val_nlp %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">t-test<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_length_val_nlp %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_like_val_nlp %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_like_length_val_nlp %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col m-2">
+                <div class="row red">
+                    <div class="col yellow" id="all_graph">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="all_graph_btn" onclick="return all_graph_show()">
+                            PREDICTION
+                        </button>
+                    </div>
+                    <div class="col yellow" id="all_test">
+                        <button style="border: none; background-color: white; font-size: 15px; font-weight: 900;"
+                            id="all_test_btn" onclick="return all_test_show()">
+                            HYPOTHESIS
+                        </button>
+                    </div>
+                </div>
+                <div class="item_container4">
+                    <div class="item41">
+                        <div class="row mt-2 green">
+                            <div class="col">
+                                <canvas id="myChart4" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item42">
+                        <div class="row mt-2" style="color:black;">
+                            <div class="col" style="width: 100%;">
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions(length)</small>
+                                                    </th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_length_val_allto %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_comment_likes_val_allto %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in pearson_hypo_likes_length_val_allto %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">t-test<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_length_val_allto %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_comment_like_val_allto %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row border1 mb-1">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">INFLUENCERS</th>
+                                                    <th scope="col">Pearson<br><small>comments captions</small></th>
+                                                    <th scope="col">claim</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for data in t_hypo_like_length_val_allto %}
+                                                <tr>
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td>{{data.value}}</td>
+                                                    <td>{{data.claim}}</td>
+                                                </tr>
+                                                {% endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+
+    var url = "/final_output";
+    var onBasisPostName = [];
+    var onBasisPostValue = [];
+
+    var onBasisVideosName = [];
+    var onBasisVideosValue = [];
+
+    var onBasisCosineName = [];
+    var onBasisCosineValue = [];
+
+    var onBasisAllName = [];
+    var onBasisAllValue = [];
+    $.ajax({
+        method: "GET",
+        url: url,
+        success: function (data) {
+            console.log(data['post'].length);
+            for (var i = 0; i < data['post'].length; i++) {
+                onBasisPostName.push(data['post'][i]['name']);
+                onBasisPostValue.push(data['post'][i]['value'] * 100);
+            }
+
+            for (var i = 0; i < data['video'].length; i++) {
+                onBasisVideosName.push(data['video'][i]['name']);
+                onBasisVideosValue.push(data['video'][i]['value'] * 100);
+            }
+
+            for (var i = 0; i < data['cosine'].length; i++) {
+                onBasisCosineName.push(data['cosine'][i]['name']);
+                onBasisCosineValue.push(data['cosine'][i]['value'] * 100);
+            }
+
+            for (var i = 0; i < data['allto'].length; i++) {
+                onBasisAllName.push(data['allto'][i]['name']);
+                onBasisAllValue.push(data['allto'][i]['value'] * 100);
+            }
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var config = {
+                type: 'bar',
+                data: {
+                    labels: onBasisPostName,
+                    datasets: [{
+                        label: "On Basis of Post interaction",
+                        data: onBasisPostValue,
+                        fill: true,
+                        backgroundColor: ['red', 'blue', 'green', 'yellow', 'black', 'pink'],
+                        borderColor: "fuchsia",
+                        borderCapStyle: 'butt',
+                        borderWidth: 1,
+                        hoverBorderWidth: 5,
+                        hoverBorderColor: 'white'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    hover: {
+                        mode: 'label'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'INFLUENCERS'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '% value',
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'On Basis of Post interaction',
+
+                    },
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            };
+            new Chart(ctx, config);
+
+            var ctx2 = document.getElementById('myChart2').getContext('2d');
+            var chart2 = new Chart(ctx2, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: onBasisVideosName,
+                    datasets: [{
+                        label: 'On Basis of Videos interaction',
+                        backgroundColor: ['#ff0000', '#ffff00', '#00ffff', '#0000ff', '#003300', '#ff33cc'],
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: onBasisVideosValue
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+            var ctx2 = document.getElementById('myChart2').getContext('2d');
+            var config2 = {
+                type: 'bar',
+                data: {
+                    labels: onBasisVideosName,
+                    datasets: [{
+                        label: "On Basis of Videos interaction",
+                        data: onBasisVideosValue,
+                        fill: true,
+                        backgroundColor: ['red', 'blue', 'green', 'yellow', 'black', 'pink'],
+                        borderColor: "fuchsia",
+                        borderCapStyle: 'butt',
+                        borderWidth: 1,
+                        hoverBorderWidth: 5,
+                        hoverBorderColor: 'white'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    hover: {
+                        mode: 'label'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'INFLUENCER'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '% value',
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'On Basis of Videos interaction',
+
+                    },
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            };
+            new Chart(ctx2, config2);
+
+
+            function nlp_graph_show() {
+                console.log("post graph show");
+                $('.item32').css('display', 'none');
+                $('.item31').css('display', 'block');
+            }
+            function nlp_test_show() {
+                console.log("post test show");
+                $('.item31').css('display', 'none');
+                $('.item32').css('display', 'block');
+            }
+            var ctx3 = document.getElementById('myChart3').getContext('2d');
+            var config3 = {
+                type: 'bar',
+                data: {
+                    labels: onBasisCosineName,
+                    datasets: [{
+                        label: "On Basis of Cosine interaction",
+                        data: onBasisCosineValue,
+                        fill: true,
+                        backgroundColor: ['red', 'blue', 'green', 'yellow', 'black', 'pink'],
+                        borderColor: "fuchsia",
+                        borderCapStyle: 'butt',
+                        borderWidth: 1,
+                        hoverBorderWidth: 5,
+                        hoverBorderColor: 'white'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    hover: {
+                        mode: 'label'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'INFLUENCER'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '% value',
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'on basis of NLP Predictions',
+
+                    },
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            };
+            new Chart(ctx3, config3);
+
+
+            var ctx4 = document.getElementById('myChart4').getContext('2d');
+            var config4 = {
+                type: 'bar',
+                data: {
+                    labels: onBasisAllName,
+                    datasets: [{
+                        label: "On Basis of All Factors interaction",
+                        data: onBasisAllValue,
+                        fill: true,
+                        backgroundColor: ['red', 'blue', 'green', 'yellow', 'black', 'pink'],
+                        borderColor: "fuchsia",
+                        borderCapStyle: 'butt',
+                        borderWidth: 1,
+                        hoverBorderWidth: 5,
+                        hoverBorderColor: 'white'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    hover: {
+                        mode: 'label'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Month'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: '% value',
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'on basis of all the above values',
+
+                    },
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            };
+            new Chart(ctx4, config4);
+
+        },
+        error: function (data) {
+            console.log("error" + data);
+        }
+    })
+    function post_graph_show() {
+        console.log("post graph show");
+        $('.item2').css('display', 'none');
+        $('.item1').css('display', 'block');
+    }
+    function post_test_show() {
+        console.log("post test show");
+        $('.item1').css('display', 'none');
+        $('.item2').css('display', 'block');
+    }
+    function video_graph_show() {
+        console.log("post graph show");
+        $('.item22').css('display', 'none');
+        $('.item21').css('display', 'block');
+    }
+    function video_test_show() {
+        console.log("post test show");
+        $('.item21').css('display', 'none');
+        $('.item22').css('display', 'block');
+    }
+    function nlp_graph_show() {
+        console.log("post graph show");
+        $('.item32').css('display', 'none');
+        $('.item31').css('display', 'block');
+    }
+    function nlp_test_show() {
+        console.log("post test show");
+        $('.item31').css('display', 'none');
+        $('.item32').css('display', 'block');
+    }
+    function all_graph_show() {
+        console.log("post graph show");
+        $('.item42').css('display', 'none');
+        $('.item41').css('display', 'block');
+    }
+    function all_test_show() {
+        console.log("post test show");
+        $('.item41').css('display', 'none');
+        $('.item42').css('display', 'block');
+    }
+</script>
+
+</html>
